@@ -12,29 +12,12 @@ if (!movieId) {
   throw new Error("Movie ID not found");
 }
 
-// Download Buttons Data (all buttons point to same file)
+// Download Buttons Data
 const downloads = [
   { quality: "480p", size: "300MB", link: fileLink, color: "btn-blue" },
   { quality: "720p", size: "800MB", link: fileLink, color: "btn-green" },
   { quality: "1080p", size: "2GB", link: fileLink, color: "btn-red" }
 ];
-
-// ===== Force Download Function =====
-function forceDownload(url, filename) {
-  fetch(url)
-    .then(res => res.blob())
-    .then(blob => {
-      const a = document.createElement("a");
-      const urlBlob = URL.createObjectURL(blob);
-      a.href = urlBlob;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(urlBlob);
-    })
-    .catch(err => console.error("Download failed:", err));
-}
 
 // ===== Expand Description if too short =====
 function expandDescription(text) {
@@ -102,19 +85,15 @@ async function loadDetails() {
       screensDiv.appendChild(el);
     });
 
-    // ===== Dynamic Download Buttons =====
+    // ===== Dynamic Download Buttons (CORS-free) =====
     const downloadDiv = document.getElementById("download-btns");
     downloads.forEach(d => {
       const btn = document.createElement("a");
-      btn.href = "#";
+      btn.href = d.link; // direct file link
       btn.className = d.color;
       btn.textContent = `${d.quality} [${d.size}]`;
-
-      btn.onclick = (e) => {
-        e.preventDefault();
-        forceDownload(d.link, "Demo-Movie.mp4"); // all buttons download same safe file
-      };
-
+      btn.setAttribute("download", "Demo-Movie.mp4"); // try force download
+      btn.setAttribute("target", "_blank"); // fallback: open in new tab if browser ignores download
       downloadDiv.appendChild(btn);
     });
 
