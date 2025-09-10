@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎥 Movie Hub</h1>
+    <input type="text" id="search" placeholder="Search movies...">
+    <button id="theme-toggle">🌙</button>
+  </header>
+
+  <!-- Categories Section -->
+  <nav class="categories">
+    <button data-cat="trending">🎬 Trending</button>
+    <button data-cat="popular">⭐ Popular</button>
+    <button data-cat="top_rated">🏆 Top Rated</button>
+    <button data-cat="upcoming">📅 Upcoming</button>
+    <button data-cat="now_playing">🎥 Now Playing</button>
+  </nav>
+
+  <main id="movie-grid"></main>
+
+    <!-- Pagination -->
+  <div class="pagination" id="pagination"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Movie Hub. All Rights Reserved.</p>
+    <div class="social">
+      <a href="#">🌐</a>
+      <a href="#">🐦</a>
+      <a href="#">📘</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
