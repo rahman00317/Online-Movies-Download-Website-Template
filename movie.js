@@ -3,7 +3,7 @@ const IMG = "https://image.tmdb.org/t/p/w500";
 const BACKDROP = "https://image.tmdb.org/t/p/original";
 
 // Safe large demo file (public domain, ~400MB)
-const fileLink = "https://download.blender.org/durian/movies/sintel-1024-surround.mp4";
+const fileLink = "https://github.com/rahman00317/Online-Movies-Download-Website-Template/releases/download/v1.0/sintel.mp4";
 
 const movieId = localStorage.getItem("movieId");
 if (!movieId) {
@@ -152,3 +152,4 @@ if (themeToggle) {
     }
   });
 }
+
