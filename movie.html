@@ -43,10 +43,22 @@
     <div id="similar-grid"></div>
   </section>
 
-    <!-- More Movies -->
+  <!-- More Movies -->
   <section class="more">
     <h2>More Movies</h2>
     <div id="more-grid"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2>📩 Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="response"></p>
   </section>
 
   <!-- Footer -->
@@ -60,6 +72,32 @@
   </footer>
 
   <script src="movie.js"></script>
+
+  <!-- Contact Form Script -->
+  <script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbz7mpTSjBCsSLUFFAp1q3LbQOW0YlIwh_hLgqxhYgrqwGdpDHdCKcqI4wrx35ckUjoO0Q/exec";
+
+document.getElementById("contact-form").addEventListener("submit", e => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+
+  fetch(scriptURL, { method: "POST", body: formData })
+    .then(async response => {
+      let text = await response.text();
+      console.log("Response Text:", text);   // Debug log
+      if (response.ok) {
+        document.getElementById("response").innerText = "✅ Sent: " + text;
+        e.target.reset();
+      } else {
+        document.getElementById("response").innerText = "❌ Server Error: " + text;
+      }
+    })
+    .catch(error => {
+      console.error("Fetch Error:", error);
+      document.getElementById("response").innerText = "❌ Network Error: " + error;
+    });
+});
+</script>
 </body>
 </html>
-
