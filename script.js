@@ -16,12 +16,14 @@ async function loadMovies(page = 1) {
   let url = "";
   if (currentQuery) {
     url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${currentQuery}&page=${page}`;
+  } else if (currentCategory === "trending") {
+    url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&page=${page}`;
+  } else if (currentCategory === "bollywood") {
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=hi&page=${page}`;
+  } else if (currentCategory === "hollywood") {
+    url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_original_language=en&page=${page}`;
   } else {
-    if (currentCategory === "trending") {
-      url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&page=${page}`;
-    } else {
-      url = `https://api.themoviedb.org/3/movie/${currentCategory}?api_key=${API_KEY}&page=${page}`;
-    }
+    url = `https://api.themoviedb.org/3/movie/${currentCategory}?api_key=${API_KEY}&page=${page}`;
   }
 
   const res = await fetch(url);
@@ -31,6 +33,7 @@ async function loadMovies(page = 1) {
   totalPages = data.total_pages;
   renderPagination(page, totalPages);
 }
+
 
 // Show Movies
 function showMovies(list) {
